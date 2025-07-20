@@ -1,31 +1,41 @@
 from database.connection import get_connection
+from database.queries.services import Services
+from models.funcionario import Funcionario
 from models.pet import Pet
 from models.cliente import Cliente
 
-def cliente_insert(cliente):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("""
+insert = Services().execute_query
+
+def cliente_insert(cliente: Cliente):
+    query = """
         INSERT INTO Cliente (cpf, nome, telefone, endereco)
         VALUES (%s, %s, %s, %s)
         RETURNING clienteid;
-    """, (cliente.cpf, cliente.nome, cliente.telefone, cliente.endereco))
-    cliente.clienteid = cur.fetchone()[0] 
-    conn.commit()
-    cur.close()
-    conn.close()
+    """
+    params = (cliente.cpf, cliente.nome, cliente.telefone, cliente.endereco)
+    
+    cliente.clienteid = insert(query=query, params=params, insert=True)
+
     return cliente
 
-def pet_insert(pet):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("""
+def pet_insert(pet: Pet):
+    query = """
         INSERT INTO Pet (nome, idade, datanascimento, raca, especie, clientecpf)
         VALUES (%s, %s, %s, %s, %s, %s)
         RETURNING petid;
-    """, (pet.nome, pet.idade, pet.datanascimento, pet.raca, pet.especie, pet.clientecpf))
-    pet.petid = cur.fetchone()[0]  
-    conn.commit()
-    cur.close()
-    conn.close()
+    """
+    params = (pet.nome, pet.idade, pet.datanascimento, pet.raca, pet.especie, pet.clientecpf)
+    pet.petid = insert(query=query, params=params, insert=True)
+
     return pet
+
+def funcionario_insert(funcionario: Funcionario):
+    query = """
+        INSERT INTO Funcionario (especialidade, nome, salario)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        RETURNING FuncionarioID;
+    """
+    params = (funcionario.especialidade, funcionario.nome, funcionario.salario)
+    funcionario.funcionarioid = insert(query=query, params=params, insert=True)
+
+    return funcionario
