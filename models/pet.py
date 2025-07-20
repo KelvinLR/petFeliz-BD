@@ -7,3 +7,8 @@ class Pet:
         self.raca = raca
         self.especie = especie
         self.clientecpf = clientecpf
+
+    def __repr__(self):
+        return (f"Pet ID={self.petid}, Nome='{self.nome}', Idade={self.idade}, "
+                f"Data de Nascimento='{self.datanascimento}', Raça='{self.raca}', "
+                f"Espécie='{self.especie}', CPF do Cliente='{self.clientecpf}'")
