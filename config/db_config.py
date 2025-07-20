@@ -1,5 +1,0 @@
-DB_HOST = "localhost"
-DB_PORT = 5432
-DB_NAME = "petshop"
-DB_USER = "postgres"
-DB_PASSWORD = SENHA
