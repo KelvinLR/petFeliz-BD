@@ -1,14 +1,15 @@
 from database.connection import get_connection
+from database.queries.services import Services
+from models.funcionario import Funcionario
 from models.pet import Pet
 from models.cliente import Cliente
 
+select = Services().select
+
 def get_cliente_by_id(clienteid):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT clienteid, cpf, nome, telefone, endereco FROM Cliente WHERE clienteid = %s;", (clienteid,))
-    row = cur.fetchone()
-    cur.close()
-    conn.close()
+    query = "SELECT clienteid, cpf, nome, telefone, endereco FROM Cliente WHERE clienteid = %s;"
+    row = select(query=query, params=(clienteid,), fetch='one')
+
     if row:
         return Cliente(
             clienteid=row[0],
@@ -20,12 +21,9 @@ def get_cliente_by_id(clienteid):
     return None
 
 def get_cliente_by_cpf(clientecpf):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT clienteid, cpf, nome, telefone, endereco FROM Cliente WHERE cpf = %s;", (clientecpf,))
-    row = cur.fetchone()
-    cur.close()
-    conn.close()
+    query = "SELECT clienteid, cpf, nome, telefone, endereco FROM Cliente WHERE cpf = %s;"
+    row = select(query=query, params=(clientecpf,), fetch='one')
+    
     if row:
         return Cliente(
             clienteid=row[0],
@@ -37,12 +35,9 @@ def get_cliente_by_cpf(clientecpf):
     return None
 
 def get_pet_by_id(petid):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT petid, nome, idade, datanascimento, raca, especie, clientecpf FROM Pet WHERE petid = %s;", (petid,))
-    row = cur.fetchone()
-    cur.close()
-    conn.close()
+    query = "SELECT petid, nome, idade, datanascimento, raca, especie, clientecpf FROM Pet WHERE petid = %s;"
+    row = select(query=query, params=(petid,), fetch='one')
+    
     if row:
         return Pet(
             petid=row[0],
@@ -55,26 +50,30 @@ def get_pet_by_id(petid):
         )
     return None
 
-def get_all_clients():
-    conn = get_connection()
-    cur = conn.cursor()
+def get_funcionario(funcionarioid: int):
+    query = "SELECT funcionarioid, especialidade, nome, salario FROM Funcionario WHERE funcionarioid = %s;"
+    row = select(query=query, params=(funcionarioid,),fetch='one')
     
-    cur.execute("SELECT * FROM Cliente;")
-    rows = cur.fetchall()
+    if row:
+        return Funcionario(
+            funcionarioid=row[0],
+            especialidade=row[1],
+            nome=row[2],
+            salario=row[3],
+        )
+    return None
 
-    cur.close()
-    conn.close()
-    
+def get_all_clients():
+    rows = select(query="SELECT * FROM Cliente;", fetch='all')
+
     return rows
 
 def get_all_pets():
-    conn = get_connection()
-    cur = conn.cursor()
-    
-    cur.execute("SELECT * FROM Pet;")
-    rows = cur.fetchall()
+    rows = select(query="SELECT * FROM Pet;", fetch='all')
 
-    cur.close()
-    conn.close()
+    return rows
+
+def get_all_funcionarios():
+    rows = select(query="SELECT * FROM Funcionario;", fetch='all')
     
     return rows
