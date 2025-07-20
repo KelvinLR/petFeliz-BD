@@ -27,7 +27,7 @@ def create_tables():
             Raca VARCHAR(100),
             Especie VARCHAR(100),
             ClienteCPF CHAR(11),
-            FOREIGN KEY (ClienteCPF) REFERENCES Cliente(CPF)
+            FOREIGN KEY (ClienteCPF) REFERENCES Cliente(CPF) ON DELETE CASCADE
         );
         """,
         """
