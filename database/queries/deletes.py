@@ -10,6 +10,14 @@ def cliente_delete(clienteid):
     cur.close()
     conn.close()
 
+def cliente_delete_by_cpf(clientecpf):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM Cliente WHERE cpf = %s;", (clientecpf,))
+    conn.commit()
+    cur.close()
+    conn.close()
+
 def pet_delete(petid):
     conn = get_connection()
     cur = conn.cursor()
