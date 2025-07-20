@@ -6,11 +6,11 @@ execute = SuperServices().execute_query
 select = SuperServices().select
 
 class FuncionarioService:
-    def get_all_funcionarios(self):
+    def get_all(self):
         rows = select(query="SELECT * FROM Funcionario;", fetch='all')
         
         return rows
-    def get_by_id(self, funcionario_id: int):
+    def get_by_id(self, funcionario_id):
         query = "SELECT funcionarioid, especialidade, nome, salario FROM Funcionario WHERE funcionarioid = %s;"
         row = select(query=query, params=(funcionario_id,),fetch='one')
         
@@ -34,11 +34,11 @@ class FuncionarioService:
 
         return funcionario
 
-    def funcionario_delete(self, funcionario_id):
+    def delete(self, funcionario_id):
         query = "DELETE FROM Funcionario WHERE funcionarioid = %s;"
         execute(query=query, params=(funcionario_id,))
 
-    def funcionario_update(self, funcionario: Funcionario):
+    def update(self, funcionario: Funcionario):
         query = """
             UPDATE Funcionario
             SET nome = %s, especialidade = %s, salario = %s
