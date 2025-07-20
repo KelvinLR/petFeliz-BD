@@ -1,10 +1,9 @@
 from database.services.clientService import ClientService
 from database.models.clienteModel import Cliente
 
-client_services = ClientService()
+services = ClientService()
 
 class ClientController:
-
     def client_create(self):
         print("Digite as informações solicitadas")
         cpf = input("CPF: ")
@@ -14,12 +13,12 @@ class ClientController:
         id = None
 
         new_cliente = Cliente(id, cpf, nome, telefone, endereco)
-        client_services.add(new_cliente)
+        services.add(new_cliente)
 
     def update_cliente(self):
         print("Digite as informações solicitadas")
         clientecpf = input("Digite o CPF do cliente que deseja atualizar: ")
-        cliente = client_services.get_by_cpf(clientecpf)
+        cliente = services.get_by_cpf(clientecpf)
 
         if cliente is None:
             print("Cliente não encontrado.")
@@ -38,12 +37,12 @@ class ClientController:
         cliente.telefone = telefone
         cliente.endereco = endereco
 
-        client_services.update(cliente)
+        services.update(cliente)
 
     def buscar_cliente(self):
         print("\nDigite as informações solicitadas")
         clienteid = input("Digite o ID do cliente: ")
-        cliente = client_services.get_by_id(clienteid)
+        cliente = services.get_by_id(clienteid)
         if cliente:
             print("Cliente encontrado:")
             print(cliente)
@@ -53,20 +52,20 @@ class ClientController:
     def remover_cliente(self):
         print("\nDigite as informações solicitadas")
         clientecpf = input("Digite o CPF do cliente a remover: ")
-        cliente = client_services.get_by_cpf(clientecpf)
+        cliente = services.get_by_cpf(clientecpf)
         if cliente is None:
             print("Cliente não encontrado.")
             return
 
         confirm = input(f"Tem certeza que deseja remover o cliente '{cliente.nome}'? (s/n): ")
         if confirm.lower() == 's':
-            client_services.delete_by_cpf(clientecpf)
+            services.delete_by_cpf(clientecpf)
             print("Cliente removido com sucesso.")
         else:
             print("Remoção cancelada.")
 
     def listar_clientes(self):
         print('Listando todos os clientes')
-        clientes = client_services.get_all()
+        clientes = services.get_all()
         for cliente in clientes: # type: ignore
             print(cliente)

@@ -2,7 +2,7 @@ from database.services.petService import PetService
 from database.models.petModel import Pet
 
 
-pet_services = PetService()
+services = PetService()
 
 class PetController:
     def pet_create(self):
@@ -16,12 +16,12 @@ class PetController:
         id = None
 
         new_pet = Pet(id,nome, idade, datanascimento, raca, especie, clientecpf)
-        pet_services.add(new_pet)
+        services.add(new_pet)
 
     def update_pet(self):
         print("Digite as informações solicitadas")
         petid = input("Digite o ID do pet que deseja atualizar: ")
-        pet = pet_services.get_by_id(petid)
+        pet = services.get_by_id(petid)
 
         if pet is None:
             print("Pet não encontrado.")
@@ -45,12 +45,12 @@ class PetController:
         pet.especie = especie
         pet.cliente_cpf = clientecpf
 
-        pet_services.update(pet)
+        services.update(pet)
 
     def buscar_pet(self):
         print("\nDigite as informações solicitadas")
         petid = input("Digite o ID do pet: ")
-        pet = pet_services.get_by_id(petid)
+        pet = services.get_by_id(petid)
         if pet:
             print("Pet encontrado:")
             print(pet)
@@ -60,20 +60,20 @@ class PetController:
     def remover_pet(self):
         print("\nDigite as informações solicitadas")
         petid = input("Digite o ID do pet a remover: ")
-        pet = pet_services.get_by_id(petid)
+        pet = services.get_by_id(petid)
         if pet is None:
             print("Pet não encontrado.")
             return
 
         confirm = input(f"Tem certeza que deseja remover o pet '{pet.nome}'? (s/n): ")
         if confirm.lower() == 's':
-            pet_services.delete(petid)
+            services.delete(petid)
             print("Pet removido com sucesso.")
         else:
             print("Remoção cancelada.")
     
     def listar_pets(self):
         print('Listando todos os pets')
-        pets = pet_services.get_all_pets()
+        pets = services.get_all_pets()
         for pet in pets: # type: ignore
             print(pet)
