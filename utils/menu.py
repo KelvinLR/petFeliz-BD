@@ -1,12 +1,16 @@
 from database.controllers.clientController import ClientController
+from database.controllers.funcionarioController import FuncionarioController
 from database.controllers.petController import PetController
+from database.controllers.produtoController import ProdutoController
 
 def menu():
     while True:
         print("\n=== PetShop PetFeliz ===")
         print("1 - Operar Cliente")
         print("2 - Operar Pet")
-        print("3 - Sair")
+        print("3 - Funcionario")
+        print("4 - Produto")
+        print("0 - Sair")
         op = input("Escolha uma opção: ")
 
         if op == '1':
@@ -68,8 +72,65 @@ def menu():
                     break
                 else:
                     print("Opção inválida, tente novamente.")
-
         elif op == '3':
+            while True:
+                print("\n-- Menu Funcionario --")
+                print("1 - Inserir funcionario")
+                print("2 - Atualizar funcionario")
+                print("3 - Buscar funcionario")
+                print("4 - Remover funcionario")
+                print("5 - Listar todos os funcionarios")
+                print("6 - Voltar ao menu principal")
+                opcao_funcionario = input("Escolha uma opção: ")
+
+                if opcao_funcionario == '1':
+                    print("Inserir Funcionario selecionado")
+                    funcionario_create()
+                elif opcao_funcionario == '2':
+                    print("Atualizar Funcionario selecionado")
+                    update_funcionario()
+                elif opcao_funcionario == '3':
+                    print("Buscar Funcionario selecionado")
+                    buscar_funcionario()
+                elif opcao_funcionario == '4':
+                    print("Remover Funcionario selecionado")
+                    remover_funcionario()
+                elif opcao_funcionario == '5':
+                    listar_funcionario()
+                elif opcao_funcionario == '6':
+                    break
+                else:
+                    print("Opção inválida, tente novamente.")
+        elif op == '4':
+            while True:
+                print("\n-- Menu Produto --")
+                print("1 - Inserir produto")
+                print("2 - Atualizar produto")
+                print("3 - Buscar produto")
+                print("4 - Remover produto")
+                print("5 - Listar todos os produtos")
+                print("6 - Voltar ao menu principal")
+                opcao_produto = input("Escolha uma opção: ")
+
+                if opcao_produto == '1':
+                    print("Inserir Produto selecionado")
+                    produto_create()
+                elif opcao_produto == '2':
+                    print("Atualizar Produto selecionado")
+                    update_produto()
+                elif opcao_produto == '3':
+                    print("Buscar Produto selecionado")
+                    buscar_produto()
+                elif opcao_produto == '4':
+                    print("Remover Produto selecionado")
+                    remover_produto()
+                elif opcao_produto == '5':
+                    listar_produto()
+                elif opcao_produto == '6':
+                    break
+                else:
+                    print("Opção inválida, tente novamente.")
+        elif op == '0':
             print("Saindo...")
             break
         else:
@@ -96,3 +157,25 @@ def remover_pet():
     PetController().remover_pet()
 def listar_pets():
     PetController().listar_pets()
+
+def funcionario_create():
+    FuncionarioController().funcionario_create()
+def update_funcionario():
+    FuncionarioController().update_funcionario()
+def buscar_funcionario():
+    FuncionarioController().buscar_funcionario()
+def remover_funcionario():
+    FuncionarioController().remover_funcionario()
+def listar_funcionario():
+    FuncionarioController().listar_funcionarios()
+
+def produto_create():
+    ProdutoController().produto_create()
+def update_produto():
+    ProdutoController().update_produto()
+def buscar_produto():
+    ProdutoController().buscar_produto()
+def remover_produto():
+    ProdutoController().remover_produto()
+def listar_produto():
+    ProdutoController().listar_produtos()
