@@ -11,8 +11,8 @@ class ProdutoService:
 
         return rows
     
-    def get_by_id(self, produto_id: int):
-        query = "SELECT produtoid, especialidade, nome, salario FROM Funcionario WHERE funcionarioid = %s;"
+    def get_by_id(self, produto_id):
+        query = "SELECT produtoid, nome, precounidade FROM Produto WHERE produtoid = %s;"
         row = select(query=query, params=(produto_id,),fetch='one')
         
         if row:
@@ -27,9 +27,9 @@ class ProdutoService:
         query = """
             INSERT INTO Produto (nome, precounidade)
             VALUES (%s, %s)
-            RETURNING funcionarioid;
+            RETURNING produtoid;
         """
-        params = (produto.nome, produto.preco_unidade, produto.produto_id)
+        params = (produto.nome, produto.preco_unidade)
         produto.produto_id = execute(query=query, params=params, insert=True)
 
         return produto
