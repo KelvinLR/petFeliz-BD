@@ -12,14 +12,6 @@ def cliente_delete_by_cpf(clientecpf):
     query = "DELETE FROM Cliente WHERE cpf = %s;"
     delete(query=query, params=(clientecpf,))
 
-def cliente_delete_by_cpf(clientecpf):
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("DELETE FROM Cliente WHERE cpf = %s;", (clientecpf,))
-    conn.commit()
-    cur.close()
-    conn.close()
-
 def pet_delete(petid):
     query = "DELETE FROM Pet WHERE petid = %s;"
     delete(query=query, params=(petid,))
