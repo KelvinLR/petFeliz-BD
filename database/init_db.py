@@ -11,7 +11,7 @@ def create_tables():
         """,
         """
         CREATE TABLE IF NOT EXISTS Cliente(
-            ClienteID SERIAL PRIMARY KEY, -- PostgreSQL usa SERIAL para auto-incremento
+            ClienteID SERIAL PRIMARY KEY,
             CPF CHAR(11) UNIQUE NOT NULL,
             Nome VARCHAR(100) NOT NULL,
             Telefone VARCHAR(20) NOT NULL,
@@ -20,7 +20,7 @@ def create_tables():
         """,
         """
         CREATE TABLE IF NOT EXISTS Pet(
-            PetID SERIAL PRIMARY KEY, -- PostgreSQL usa SERIAL para auto-incremento
+            PetID SERIAL PRIMARY KEY,
             Nome VARCHAR(100) NOT NULL,
             Idade INT NOT NULL,
             DataNascimento DATE NOT NULL,
@@ -32,7 +32,7 @@ def create_tables():
         """,
         """
         CREATE TABLE IF NOT EXISTS Funcionario(
-            FuncionarioID SERIAL PRIMARY KEY, -- PostgreSQL usa SERIAL para auto-incremento
+            FuncionarioID SERIAL PRIMARY KEY, 
             Especialidade VARCHAR(100) NOT NULL,
             Nome VARCHAR(100) NOT NULL,
             Salario DECIMAL(10, 2) NOT NULL
@@ -40,19 +40,19 @@ def create_tables():
         """,
         """
         CREATE TABLE IF NOT EXISTS Atendimento(
-            AtendimentoID SERIAL PRIMARY KEY, -- PostgreSQL usa SERIAL para auto-incremento
+            AtendimentoID SERIAL PRIMARY KEY,
             DataAtendimento DATE NOT NULL,
             Horario TIME NOT NULL,
-            Servico ServiceType NOT NULL, -- Usando o tipo ENUM criado
+            Servico ServiceType NOT NULL,
             PetID INT NOT NULL,
             ProfissionalID INT NOT NULL,
-            FOREIGN KEY (PetID) REFERENCES Pet(PetID), -- Vírgula adicionada
+            FOREIGN KEY (PetID) REFERENCES Pet(PetID), 
             FOREIGN KEY (ProfissionalID) REFERENCES Funcionario(FuncionarioID)
         );
         """,
         """
         CREATE TABLE IF NOT EXISTS Consulta(
-            ConsultaID SERIAL PRIMARY KEY, -- PostgreSQL usa SERIAL para auto-incremento
+            ConsultaID SERIAL PRIMARY KEY,
             Motivo VARCHAR(100),
             Medicamentos VARCHAR(100),
             DataRetorno DATE,
@@ -61,7 +61,7 @@ def create_tables():
         """,
         """
         CREATE TABLE IF NOT EXISTS Venda(
-            VendaID SERIAL PRIMARY KEY, -- PostgreSQL usa SERIAL para auto-incremento
+            VendaID SERIAL PRIMARY KEY,
             TotalVenda DECIMAL(10, 2) NOT NULL,
             ClienteID INT NOT NULL,
             AtendenteID INT NOT NULL,
@@ -71,9 +71,9 @@ def create_tables():
         """,
         """
         CREATE TABLE IF NOT EXISTS Produto(
-            ProdutoID SERIAL PRIMARY KEY, -- PostgreSQL usa SERIAL para auto-incremento
+            ProdutoID SERIAL PRIMARY KEY,
             Nome VARCHAR(100) NOT NULL,
-            PrecoUnidade DECIMAL(10, 2) NOT NULL -- Vírgula removida
+            PrecoUnidade DECIMAL(10, 2) NOT NULL
         );
         """,
         """
