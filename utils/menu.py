@@ -4,6 +4,7 @@ from database.controllers.petController import PetController
 from database.controllers.produtoController import ProdutoController
 from database.controllers.atendimentoController import AtendimentoController
 from database.controllers.consultaController import ConsultaController
+from database.controllers.vendaController import VendaController
 
 def menu():
     while True:
@@ -14,6 +15,7 @@ def menu():
         print("4 - Produto")
         print("5 - Atendimento")
         print("6 - Consulta")
+        print("7 - Vendas")
         print("0 - Sair")
         op = input("Escolha uma opção: ")
 
@@ -184,6 +186,31 @@ def menu():
                     break
                 else:
                     print("Opção inválida, tente novamente.")
+        elif op == '7':
+            while True:
+                print("\n-- Menu de Vendas --")
+                print("1 - Inserir Venda")
+                print("2 - Atualizar Venda")
+                print("3 - Buscar Venda")
+                print("4 - Remover Venda")
+                print("5 - Listar Vendas")
+                print("0 - Voltar ao menu principal")
+                opcao_venda = input("Escolha uma opção: ")
+
+                if opcao_venda == '1':
+                    venda_create()
+                elif opcao_venda == '2':
+                    update_venda()
+                elif opcao_venda == '3':
+                    buscar_venda()
+                elif opcao_venda == '4':
+                    remover_venda()
+                elif opcao_venda == '5':
+                    listar_vendas()
+                elif opcao_venda == '0':
+                    break
+                else:
+                    print("Opção inválida, tente novamente.")
         elif op == '0':
             print("Saindo...")
             break
@@ -256,3 +283,14 @@ def remover_consulta():
     ConsultaController().remover_consulta()
 def listar_consultas():
     ConsultaController().listar_consultas()
+
+def venda_create():
+    VendaController().venda_create()
+def update_venda():
+    VendaController().update_venda()
+def buscar_venda():
+    VendaController().buscar_venda()
+def remover_venda():
+    VendaController().remover_venda()
+def listar_vendas():
+    VendaController().listar_vendas()
