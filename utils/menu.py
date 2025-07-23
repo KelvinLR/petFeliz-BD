@@ -2,6 +2,8 @@ from database.controllers.clientController import ClientController
 from database.controllers.funcionarioController import FuncionarioController
 from database.controllers.petController import PetController
 from database.controllers.produtoController import ProdutoController
+from database.controllers.atendimentoController import AtendimentoController
+from database.controllers.consultaController import ConsultaController
 
 def menu():
     while True:
@@ -10,6 +12,8 @@ def menu():
         print("2 - Operar Pet")
         print("3 - Funcionario")
         print("4 - Produto")
+        print("5 - Atendimento")
+        print("6 - Consulta")
         print("0 - Sair")
         op = input("Escolha uma opção: ")
 
@@ -21,7 +25,7 @@ def menu():
                 print("3 - Buscar Cliente")
                 print("4 - Remover Cliente")
                 print("5 - Listar todos os clientes")
-                print("6 - Voltar ao menu principal")
+                print("0 - Voltar ao menu principal")
                 opcao_cliente = input("Escolha uma opção: ")
 
                 if opcao_cliente == '1':
@@ -38,7 +42,7 @@ def menu():
                     remover_cliente()
                 elif opcao_cliente == '5':
                     listar_clientes()
-                elif opcao_cliente == '6':
+                elif opcao_cliente == '0':
                     break
                 else:
                     print("Opção inválida, tente novamente.")
@@ -51,7 +55,7 @@ def menu():
                 print("3 - Buscar Pet")
                 print("4 - Remover Pet")
                 print("5 - Listar todos os pets")
-                print("6 - Voltar ao menu principal")
+                print("0 - Voltar ao menu principal")
                 opcao_pet = input("Escolha uma opção: ")
 
                 if opcao_pet == '1':
@@ -68,7 +72,7 @@ def menu():
                     remover_pet()
                 elif opcao_pet == '5':
                     listar_pets()
-                elif opcao_pet == '6':
+                elif opcao_pet == '0':
                     break
                 else:
                     print("Opção inválida, tente novamente.")
@@ -80,7 +84,7 @@ def menu():
                 print("3 - Buscar funcionario")
                 print("4 - Remover funcionario")
                 print("5 - Listar todos os funcionarios")
-                print("6 - Voltar ao menu principal")
+                print("0 - Voltar ao menu principal")
                 opcao_funcionario = input("Escolha uma opção: ")
 
                 if opcao_funcionario == '1':
@@ -97,7 +101,7 @@ def menu():
                     remover_funcionario()
                 elif opcao_funcionario == '5':
                     listar_funcionario()
-                elif opcao_funcionario == '6':
+                elif opcao_funcionario == '0':
                     break
                 else:
                     print("Opção inválida, tente novamente.")
@@ -109,7 +113,7 @@ def menu():
                 print("3 - Buscar produto")
                 print("4 - Remover produto")
                 print("5 - Listar todos os produtos")
-                print("6 - Voltar ao menu principal")
+                print("0 - Voltar ao menu principal")
                 opcao_produto = input("Escolha uma opção: ")
 
                 if opcao_produto == '1':
@@ -126,7 +130,57 @@ def menu():
                     remover_produto()
                 elif opcao_produto == '5':
                     listar_produto()
-                elif opcao_produto == '6':
+                elif opcao_produto == '0':
+                    break
+                else:
+                    print("Opção inválida, tente novamente.")
+        elif op == '5':
+            while True:
+                print("\n-- Menu Atendimento --")
+                print("1 - Inserir Atendimento")
+                print("2 - Atualizar Atendimento")
+                print("3 - Buscar Atendimento")
+                print("4 - Remover Atendimento")
+                print("5 - Listar Atendimentos")
+                print("0 - Voltar ao menu principal")
+                opcao_atendimento = input("Escolha uma opção: ")
+
+                if opcao_atendimento == '1':
+                    atendimento_create()
+                elif opcao_atendimento == '2':
+                    update_atendimento()
+                elif opcao_atendimento == '3':
+                    buscar_atendimento()
+                elif opcao_atendimento == '4':
+                    remover_atendimento()
+                elif opcao_atendimento == '5':
+                    listar_atendimentos()
+                elif opcao_atendimento == '0':
+                    break
+                else:
+                    print("Opção inválida, tente novamente.")
+        elif op == '6':
+            while True:
+                print("\n-- Menu Consulta --")
+                print("1 - Inserir Consulta")
+                print("2 - Atualizar Consulta")
+                print("3 - Buscar Consulta")
+                print("4 - Remover Consulta")
+                print("5 - Listar Consultas")
+                print("0 - Voltar ao menu principal")
+                opcao_consulta = input("Escolha uma opção: ")
+
+                if opcao_consulta == '1':
+                    consulta_create()
+                elif opcao_consulta == '2':
+                    update_consulta()
+                elif opcao_consulta == '3':
+                    buscar_consulta()
+                elif opcao_consulta == '4':
+                    remover_consulta()
+                elif opcao_consulta == '5':
+                    listar_consultas()
+                elif opcao_consulta == '0':
                     break
                 else:
                     print("Opção inválida, tente novamente.")
@@ -179,3 +233,26 @@ def remover_produto():
     ProdutoController().remover_produto()
 def listar_produto():
     ProdutoController().listar_produtos()
+
+def atendimento_create():
+    AtendimentoController().atendimento_create()
+def update_atendimento():
+    AtendimentoController().update_atendimento()
+def buscar_atendimento():
+    AtendimentoController().buscar_atendimento()
+def remover_atendimento():
+    AtendimentoController().remover_atendimento()
+def listar_atendimentos():
+    AtendimentoController().listar_atendimentos()
+
+
+def consulta_create():
+    ConsultaController().consulta_create()
+def update_consulta():
+    ConsultaController().update_consulta()
+def buscar_consulta():
+    ConsultaController().buscar_consulta()
+def remover_consulta():
+    ConsultaController().remover_consulta()
+def listar_consultas():
+    ConsultaController().listar_consultas()

@@ -9,7 +9,7 @@ def create_tables():
             END IF;
         END $$;
         """,
-        """
+        """KKKK
         CREATE TABLE IF NOT EXISTS Cliente(
             ClienteID SERIAL PRIMARY KEY,
             CPF CHAR(11) UNIQUE NOT NULL,
