@@ -4,3 +4,7 @@ class Venda:
         self.total_venda = total_venda
         self.cliente_id = cliente_id    
         self.atendente_id = atendente_id
+        
+    def __repr__(self):
+        return (f"Venda ID={self.venda_id}, Total da Venda='{self.total_venda}', Cliente ID={self.cliente_id}, "
+                f"Atendente ID='{self.atendente_id}'")
