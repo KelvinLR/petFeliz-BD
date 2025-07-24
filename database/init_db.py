@@ -6,6 +6,7 @@ def create_tables():
         DO $$ BEGIN
             IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'servicetype') THEN
                 CREATE TYPE ServiceType AS ENUM ('Consultas Veterinárias', 'Banho e Tosa');
+                CREATE TYPE EspecialidadeType AS ENUM ('Vendas', 'Veterinário', 'Esteticista');
             END IF;
         END $$;
         """,
@@ -33,7 +34,7 @@ def create_tables():
         """
         CREATE TABLE IF NOT EXISTS Funcionario(
             FuncionarioID SERIAL PRIMARY KEY, 
-            Especialidade VARCHAR(100) NOT NULL,
+            Especialidade EspecialidadeType NOT NULL,
             Nome VARCHAR(100) NOT NULL,
             Salario DECIMAL(10, 2) NOT NULL
         );
@@ -47,8 +48,8 @@ def create_tables():
             PetID INT NOT NULL,
             ProfissionalID INT NOT NULL,
             ValorCobrado DECIMAL(10, 2) NOT NULL,
-            FOREIGN KEY (PetID) REFERENCES Pet(PetID), 
-            FOREIGN KEY (ProfissionalID) REFERENCES Funcionario(FuncionarioID)
+            FOREIGN KEY (PetID) REFERENCES Pet(PetID) ON DELETE CASCADE, 
+            FOREIGN KEY (ProfissionalID) REFERENCES Funcionario(FuncionarioID) ON DELETE CASCADE
         );
         """,
         """
@@ -57,7 +58,7 @@ def create_tables():
             Motivo VARCHAR(100),
             Medicamentos VARCHAR(100),
             DataRetorno DATE,
-            FOREIGN KEY (ConsultaID) REFERENCES Atendimento(AtendimentoID)
+            FOREIGN KEY (ConsultaID) REFERENCES Atendimento(AtendimentoID) ON DELETE CASCADE
         );
         """,
         """
@@ -66,8 +67,8 @@ def create_tables():
             TotalVenda DECIMAL(10, 2) NOT NULL,
             ClienteID INT NOT NULL,
             AtendenteID INT NOT NULL,
-            FOREIGN KEY (ClienteID) REFERENCES Cliente(ClienteID),
-            FOREIGN KEY (AtendenteID) REFERENCES Funcionario(FuncionarioID)
+            FOREIGN KEY (ClienteID) REFERENCES Cliente(ClienteID) ON DELETE CASCADE,
+            FOREIGN KEY (AtendenteID) REFERENCES Funcionario(FuncionarioID) ON DELETE CASCADE
         );
         """,
         """
@@ -77,16 +78,6 @@ def create_tables():
             PrecoUnidade DECIMAL(10, 2) NOT NULL
         );
         """,
-        """
-        CREATE TABLE IF NOT EXISTS VendaProduto_Item (
-            VendaID INT,
-            ProdutoID INT,
-            Quantidade INT NOT NULL,
-            PRIMARY KEY (VendaID, ProdutoID),
-            FOREIGN KEY (VendaID) REFERENCES Venda(VendaID),
-            FOREIGN KEY (ProdutoID) REFERENCES Produto(ProdutoID)
-        );
-        """
     ]
 
     try:
