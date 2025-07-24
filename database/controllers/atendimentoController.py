@@ -13,11 +13,12 @@ class AtendimentoController:
             return
         horario = input("Horário (HH:MM): ")
         servico = input("Serviço ('Consultas Veterinárias' ou 'Banho e Tosa'): ")
+        valor_cobrado = input("Valor Cobrado: ")
         pet_id = int(input("ID do Pet: "))
         profissional_id = int(input("ID do Profissional: "))
         id = None
 
-        novo_atendimento = Atendimento(id, data, horario, servico, pet_id, profissional_id)
+        novo_atendimento = Atendimento(id, data, horario, servico, valor_cobrado, pet_id, profissional_id)
         services.add(novo_atendimento)
 
     def listar_atendimentos(self):
@@ -63,12 +64,14 @@ class AtendimentoController:
             data = atendimento.data_atendimento
         horario = input(f"Novo Horário ({atendimento.horario}): ") or atendimento.horario
         servico = input(f"Novo Serviço ({atendimento.servico}): ") or atendimento.servico
+        valor_cobrado = input(f"Novo Valor Cobrado ({atendimento.valor_cobrado}): ") or atendimento.valor_cobrado
         pet_id = input(f"Novo Pet ID ({atendimento.pet_id}): ") or atendimento.pet_id
         profissional_id = input(f"Novo Profissional ID ({atendimento.profissional_id}): ") or atendimento.profissional_id
 
         atendimento.data_atendimento = data
         atendimento.horario = horario
         atendimento.servico = servico
+        atendimento.valor_cobrado = valor_cobrado
         atendimento.pet_id = int(pet_id)
         atendimento.profissional_id = int(profissional_id)
 

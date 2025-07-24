@@ -18,23 +18,23 @@ class AtendimentoService:
 
     def add(self, atendimento: Atendimento):
         query = """
-            INSERT INTO Atendimento (dataatendimento, horario, servico, petid, profissionalid)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO Atendimento (dataatendimento, horario, servico, valorcobrado, petid, profissionalid)
+            VALUES (%s, %s, %s, %s, %s, %s)
             RETURNING atendimentoid;
         """
         params = (atendimento.data_atendimento, atendimento.horario, atendimento.servico,
-                  atendimento.pet_id, atendimento.profissional_id)
+                  atendimento.valor_cobrado, atendimento.pet_id, atendimento.profissional_id)
         atendimento.atendimento_id = execute(query=query, params=params, insert=True)
         return atendimento
 
     def update(self, atendimento: Atendimento):
         query = """
             UPDATE Atendimento
-            SET dataatendimento = %s, horario = %s, servico = %s, petid = %s, profissionalid = %s
+            SET dataatendimento = %s, horario = %s, servico = %s, valorcobrado = %s, petid = %s, profissionalid = %s
             WHERE atendimentoid = %s;
         """
         params = (atendimento.data_atendimento, atendimento.horario, atendimento.servico,
-                  atendimento.pet_id, atendimento.profissional_id, atendimento.atendimento_id)
+                  atendimento.valor_cobrado, atendimento.pet_id, atendimento.profissional_id, atendimento.atendimento_id)
         execute(query=query, params=params)
 
     def delete(self, atendimento_id):

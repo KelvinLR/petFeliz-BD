@@ -9,7 +9,7 @@ def create_tables():
             END IF;
         END $$;
         """,
-        """KKKK
+        """
         CREATE TABLE IF NOT EXISTS Cliente(
             ClienteID SERIAL PRIMARY KEY,
             CPF CHAR(11) UNIQUE NOT NULL,
@@ -46,6 +46,7 @@ def create_tables():
             Servico ServiceType NOT NULL,
             PetID INT NOT NULL,
             ProfissionalID INT NOT NULL,
+            ValorCobrado DECIMAL(10, 2) NOT NULL,
             FOREIGN KEY (PetID) REFERENCES Pet(PetID), 
             FOREIGN KEY (ProfissionalID) REFERENCES Funcionario(FuncionarioID)
         );
